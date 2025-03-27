@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorite Things</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 300px;
+            margin: auto;
+        }
+        img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+        button {
+            margin-left: auto;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        input {
+            padding: 5px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Favorite Things</h1>
+    <input type="text" id="newitem" placeholder="Add a favorite thing">
+    <input type="text" id="imageurl" placeholder="Image URL (optional)">
+    <button onclick="addItem()">Add</button>
+
+    <ul id="favorites-list"></ul>
+
+    <script>
+        let favorites = [
+            { name: "Pizza", image: "https://via.placeholder.com/50?text=Pizza" },
+            { name: "Minecraft", image: "https://via.placeholder.com/50?text=Minecraft" },
+            { name: "Coding", image: "https://via.placeholder.com/50?text=Coding" },
+            { name: "Soccer", image: "https://via.placeholder.com/50?text=Soccer" },
+            { name: "Cartoons", image: "https://via.placeholder.com/50?text=Cartoons" }
+        ];
+
+        function displayList() {
+            let list = document.getElementById("favorites-list");
+            list.innerHTML = ""; // Clear list before re-rendering
+
+            favorites.forEach((item, index) => {
+                let li = document.createElement("li");
+
+                let img = document.createElement("img");
+                img.src = item.image;
+                img.alt = item.name;
+
+                let text = document.createElement("span");
+                text.textContent = item.name;
+
+                let removeBtn = document.createElement("button");
+                removeBtn.textContent = "Remove";
+                removeBtn.onclick = function () {
+                    removeItem(index);
+                };
+
+                li.appendChild(img);
+                li.appendChild(text);
+                li.appendChild(removeBtn);
+                list.appendChild(li);
+            });
+        }
+
+        function addItem() {
+            let newItem = document.getElementById("newitem").value.trim();
+            let imageUrl = document.getElementById("imageurl").value.trim() || "https://via.placeholder.com/50?text=New"; 
+
+            if (newItem !== "") {
+                favorites.push({ name: newItem, image: imageUrl });
+                document.getElementById("newitem").value = ""; // Clear input fields
+                document.getElementById("imageurl").value = "";
+                displayList();
+            }
+        }
+
+        function removeItem(index) {
+            favorites.splice(index, 1);
+            displayList();
+        }
+
+        // Initial display
+        displayList();
+    </script>
+</body>
+</html>

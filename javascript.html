@@ -3,10 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JavaScript</title>
+<title>My favorite Things</title>
 </head>
 <body>
-    
-    <script src="./main.js"></script>
+    <h1>My favorite things</h1>
+    <input type="text" id="new item" placeholder="Add a favorite thing">
+    <button onclick="additem()">Add</button>
+
+    <ul id="favorites-list"></ul>
+    <script>
+        let favorites = ["Pizza","Minecraft","Coding","Soccer","Cartoons"];
+
+        let list = document.getElementById("favorites-lists");
+
+        function displayList() {
+            let li = document.createElement("li");
+            li.textContent = item + "";
+
+            let removeBtn = document.createElement("button");
+            removeBtn.textContent = "Remove";
+            removeBtn.onclick = function() {
+                removeItem(index);
+            };
+
+            li.appendChild(removeBtn)
+            list.appendChild(li);
+        });
+    }
+
+    function additem() {
+        let newitem = document.getElementById("newitem").value;
+        if (newitem.trim() !== "") {
+            favorites.push(newitem);
+            document.getElementById("newitem").value = ""
+            displayList();
+        }
+    }
+    function removeItem(index) {
+        favorites.splice(index, 1);
+        displayList();
+    }
+
+    displayList();
+    </script>
 </body>
 </html>
